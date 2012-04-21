@@ -1,0 +1,13 @@
+{ "name" : "penduluino",
+    "version" : "0.0.1",
+    "description" : "Le pendule sans nom qui transcende le silence de la musique.",
+    "author": "",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/ebausson/Penduluino.git"
+    },
+    "dependencies": {
+        "serialport": "*"
+    },
+    "engines": { "node": "0.6" }
+}
