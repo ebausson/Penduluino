@@ -14,39 +14,34 @@ require('http').createServer(function (request, response) {
 }).listen(8080);
 
 
-// socket.io computer server
+// socket.io server
 
-var computerIO = socketio.listen(8000);
-computerIO.sockets.on('connection', function (socket) {
+var io = socketio.listen(8000);
+io.set('log level', 1);
+
+var computers = io.of('/computer');
+computers.on('connection', function (socket) {
   socket.emit('handshake', { hello: 'client' });
   socket.on('handshake', function (data) {
     console.log('+COMPUTER');
     console.log(data);
   });
 });
-computerIO.set('log level', 1);
 
 
-// socket.io mobile server
 
-var mobileIO = socketio.listen(6000);
-mobileIO.sockets.on('connection', function (socket) {
+var mobiles = io.of('/mobile');
+mobiles.on('connection', function (socket) {
   socket.emit('handshake', { hello: 'client' });
   socket.on('handshake', function (data) {
     console.log('+MOBILE');
     console.log(data);
   });
-  /*
-  socket.on('disconnect', function () {
-    computerIO.sockets.emit('news', 'user disconnected');
-  });
-  */
   socket.on('mobile', function(data){
-    computerIO.sockets.emit('mobile', data);
+    console.log(data);
+    computers.emit('mobile', data);
   });
 });
-mobileIO.set('log level', 1);
-
 
 // getting data from serial
 var serial;
@@ -72,7 +67,7 @@ var lastData = 0;
 
 serial.on("data", function (data) {
   if (data != lastData){
-    computerIO.sockets.emit('pendulum', getDiffObject(lastData, data));
+    computers.emit('pendulum', getDiffObject(lastData, data));
     lastData = data;
   }
 });
