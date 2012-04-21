@@ -1,11 +1,31 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  var socket = io.connect('http://localhost:8000');
-  socket.on('handshake', function (data) {
-    console.log(data);
-    socket.emit('handshake', { my: navigator.userAgent });
-  });
-  socket.on('pendulum', function (data) {
-    console.log(data);
-  });
+  var socketLocation = window.location.hostname;
+  var socketLocation = 'http://' + socketLocation;
+  
+  var socket;
+  if (navigator.userAgent.indexOf('Mobi') > -1) {
+    // device seems to be a mobile, now we can try to send acceleration data & stuff.
+    socket = io.connect(socketLocation + ":" + 6000);
+    
+    socket.emit('mobile', 'test');
+    
+  } else {
+    
+    // device seems to be a computer, here come the rendering code.
+    socket = io.connect(socketLocation + ":" + 8000);
+    socket.on('handshake', function (data) {
+      console.log(data);
+      socket.emit('handshake', { index: navigator.userAgent.indexOf('Mobi'),my: navigator.userAgent });
+    });
+    
+    socket.on('pendulum', function (data) {
+      console.log(data);
+    });
+        
+    socket.on('mobile', function(data){
+      console.log('+MOBILE');
+      console.log(data);
+    });
+  };
 </script>
