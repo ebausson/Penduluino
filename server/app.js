@@ -38,8 +38,48 @@ var lastData = 0;
 
 serial.on("data", function (data) {
   if (data != lastData){
-    console.log(data);
+    io.sockets.emit('pendulum', getDiffObject(lastData, data));
     lastData = data;
-    io.sockets.emit('pendulum', data);
   }
 });
+
+getDiffObject = function(oldData, newData){
+  var result = {};
+  
+  var mask = 0x01;
+  var name ="p1";
+  if ((newData & mask) != (oldData & mask)){
+    result[name] = !! (newData & mask);
+  }
+  
+  var mask = 0x02;
+  var name ="p2";
+  if ((newData & mask) != (oldData & mask)){
+    result[name] = !! (newData & mask);
+  }
+  
+  var mask = 0x04;
+  var name ="p3";
+  if ((newData & mask) != (oldData & mask)){
+    result[name] = !! (newData & mask);
+  }
+  
+  var mask = 0x08;
+  var name ="p4";
+  if ((newData & mask) != (oldData & mask)){
+    result[name] = !! (newData & mask);
+  }
+  
+  var mask = 0x10;
+  var name ="p5";
+  if ((newData & mask) != (oldData & mask)){
+    result[name] = !! (newData & mask);
+  }
+  
+  var mask = 0x20;
+  var name ="p6";
+  if ((newData & mask) != (oldData & mask)){
+    result[name] = !! (newData & mask);
+  }
+  return result;
+}
