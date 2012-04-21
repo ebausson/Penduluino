@@ -8,7 +8,8 @@
     },
     "dependencies": {
         "serialport": "*",
-        "node-static": "*"
+        "node-static": "*",
+        "socket.io":"*"
     },
     "engines": { "node": "0.6" }
 }
