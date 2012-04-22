@@ -17,9 +17,6 @@ function backgroundInit(sound){
 
 		// clear the canvas
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-		ctx.fillStyle	= "rgba(192,50,50,127)";
-		//ctx.fillStyle	= "rgb(255,255,255)";
-		//ctx.fillRect(10,10, 50,50);
 		drawHisto(canvas, histo);
 		return;
 
@@ -30,8 +27,12 @@ function backgroundInit(sound){
 			var nBar	= histo.length;
 			var barW	= Math.floor(canvas.width/nBar);
 			for(var i = 0; i < histo.length; i++){
-				var height	= Math.floor(histo[i]) / 256 * canvas.height;
-				ctx.fillRect(i*barW, canvas.height-height, barW, height) ;
+				var height	= Math.floor(histo[i]) / 256;
+				
+				ctx.fillStyle	= "hsl("+(height*360)+", 100%, 50%)";
+				
+				var heightPix	= height * canvas.height;
+				ctx.fillRect(i*barW, canvas.height-heightPix, barW, heightPix) ;
 			}
 		}
 	};
