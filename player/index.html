@@ -25,6 +25,9 @@
 <!-- camera controls -->
 <script src="js/cameracontrols.js"></script>
 
+<script src="js/tweeneasing.js"></script>
+
+
 <body><script>
 	// some global
 	var audioEnable	= WebAudio.isAvailable;
@@ -75,23 +78,29 @@
 			var max		= 1;
 			var offset	= 0;
 			var range	= 1;
+			var tweenFn	= TWEEN.Easing.Linear.None;
 			// tuned value
-			var min		= 0.8;
+			var min		= 0.7;
 			var max		= 1;
-			var offset	= 0.5;
-			var range	= 1.5;
+			var offset	= 0.8;
+			var range	= 1.2;
+			var tweenFn	= TWEEN.Easing.Circular.InOut;
+			var tweenFn	= TWEEN.Easing.Quadratic.InOut;
 			// normalization of the scale
 			var scale	= soundtrack.amplitude();
+			
 			scale		= Math.min(scale, max);
 			scale		= Math.max(scale, min);
 			scale		-= min;
 			scale		/= max == min ? 1 : max - min;
+			scale		= tweenFn(scale);
 			scale		*= range;
 			scale		+= offset;
-			// application of the scale
+			// apply a smooth on the result... doesnt work well on sound
 			var oldScale	= sun.planet().get(0).scale.x;
 			var spdScale	= 0.6;
 			var newScale	= scale*spdScale+oldScale*(1-spdScale);
+			// application of the scale
 			sun.planet().scale(newScale);
 		}); 
 	}
