@@ -1,0 +1,10 @@
+.computer div {
+  width  : 100px;
+  height : 100px;
+  float  : left;
+  border : 1px solid black;
+}
+
+.computer .on {
+  background-color : red;
+}

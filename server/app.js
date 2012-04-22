@@ -1,4 +1,3 @@
-var serialport = require("serialport");
 var socketio = require("socket.io");
 var http = require('http');
 var static = require('node-static');
@@ -46,26 +45,31 @@ mobiles.on('connection', function (socket) {
 // getting data from serial
 var serial;
 try {
-  console.log('trying logging in /dev/ttyUSB0');
-  serial = new serialport.SerialPort("/dev/ttyUSB0", { 
-    parser: serialport.parsers.readline("\n")
-  });
-} catch (e) {
+  var serialport = require("serialport");
   try {
-    console.log('trying logging in /dev/ttyUSB1');
-    serial = new serialport.SerialPort("/dev/ttyUSB1", { 
+    console.log('trying logging in /dev/ttyUSB0');
+    serial = new serialport.SerialPort("/dev/ttyUSB0", { 
       parser: serialport.parsers.readline("\n")
     });
-  } catch (f) {
-    console.log('ERROR, arduino no found in /dev');
-    process.exit(1);
+  } catch (e) {
+    try {
+      console.log('trying logging in /dev/ttyUSB1');
+      serial = new serialport.SerialPort("/dev/ttyUSB1", { 
+        parser: serialport.parsers.readline("\n")
+      });
+    } catch (f) {
+      console.log('ERROR, arduino no found in /dev');
+      // process.exit(1); // exiting at that point is just too sad
+    }
   }
+} catch (e) {
+  console.log("'serialport' module not found");
 }
 
 
 var lastData = 0;
 
-serial.on("data", function (data) {
+serial && serial.on("data", function (data) {
   if (data != lastData){
     computers.emit('pendulum', getDiffObject(lastData, data));
     lastData = data;
