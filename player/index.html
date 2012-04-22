@@ -16,7 +16,8 @@
 
 <!-- to display the soundtrack frequency histogram in 2D canvas -->
 <script src="js/soundtrack.js"></script>
-<script src="js/background.js"></script>
+<script src="js/histo2dbackground.js"></script>
+<script src="js/histo3dbackground.js"></script>
 
 <!-- communication with the server -->
 <!--<script src="vendor/socket.io/socket.io.js"></script>
@@ -34,7 +35,7 @@
 	var webGlEnable	= tQuery.World.hasWebGL();
 	var hiGlEnable	= false;
 	var trackEnable	= true;
-	var bgEnable	= true;
+	var bg2dEnable	= true;
 
 	var captors	= {};
 	var soundtrack	= null;
@@ -138,6 +139,6 @@
 	}
 
 	if( trackEnable )		soundtrack	= soundtrackCreate();
-	if( trackEnable && bgEnable )	backgroundInit(soundtrack);
-
+	//if( trackEnable && bg2dEnable )	histo2dBackgroundInit(soundtrack);
+histo3dBackgroundInit(soundtrack);
 </script></body>

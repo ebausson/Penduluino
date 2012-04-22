@@ -1,4 +1,4 @@
-function backgroundInit(sound){
+function histo2dBackgroundInit(sound){
 	var canvas	= document.createElement('canvas');
 	canvas.width	= window.innerWidth;
 	canvas.height	= window.innerHeight;
