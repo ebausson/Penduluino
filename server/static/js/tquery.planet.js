@@ -3,6 +3,7 @@ tQuery.register('Planet', function(opts){
 		world		: tQuery.world,
 		radiusOrbit	: 0,
 		periodOrbit	: 1,
+		periodOrbit	: 4 + Math.random()*2,
 		offsetOrbit	: Math.random()*Math.PI*2,
 		axialTilt	: 0,
 		scale		: 1

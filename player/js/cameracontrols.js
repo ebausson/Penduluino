@@ -1,5 +1,6 @@
 function initCameraControls(world)
 {
+	
 	var controls	= new THREEx.DragPanControls(world.camera());
 
 	//var controls	= new THREE.FirstPersonControls(world.camera());

@@ -35,14 +35,19 @@
 	var hiGlEnable	= false;
 	var trackEnable	= true;
 	var bg2dEnable	= true;
+	var bg3dEnable	= true;
 
 	var captors	= {};
 	var soundtrack	= null;
 
-	var world	= tQuery.createWorld().boilerplate().start();
-	world.renderer().setClearColorHex( 0x000000, 0 );
-
-	initCameraControls(world);
+	try {
+		var world	= tQuery.createWorld().boilerplate().start();
+		world.renderer().setClearColorHex( 0x000000, 0 );
+		initCameraControls(world);
+	}catch(e){
+		console.log("Error: ", e.message)
+		console.warn("You dont have WebGL. All webgl usage is disabled")
+	}
 
 	// init the library
 	var webaudio	= new WebAudio();
@@ -55,7 +60,7 @@
 	var tLight	= new THREE.PointLight(0xFFAAAA, 10);
 	tLight.position.set(0,0,0)
 
-	tQuery(tLight).addTo(world);
+	tQuery(tLight).addTo(world);		
 
 
 	// create planets
@@ -138,6 +143,6 @@
 	}
 
 	if( trackEnable )		soundtrack	= soundtrackCreate();
-	//if( trackEnable && bg2dEnable )	histo2dBackgroundInit(soundtrack);
-histo3dBackgroundInit(soundtrack);
+	if( trackEnable && bg2dEnable )	histo2dBackgroundInit(soundtrack);
+	if( trackEnable && bg3dEnable )	histo3dBackgroundInit(soundtrack);
 </script></body>

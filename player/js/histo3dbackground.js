@@ -12,7 +12,6 @@ function histo3dBackgroundInit(sound){
 	group3d.position(0,-1,0)
 	for(var i = 0; i < nBar; i++){
 		var material	= new THREE.MeshBasicMaterial({color: 0x333333});
-
 		var object3d	= tQuery.createCube(barW,30,0.2, material).addTo(group3d);
 		object3d.position((i-nBar/2)*barW, 0, 0);
 

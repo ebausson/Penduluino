@@ -110,7 +110,6 @@ function initComputerDom(){
           soundUrl	: '../sounds/eatpill.mp3',
           soundUrl	: '../sounds/Kit3/hihat.wav',
           radiusOrbit	: 1,
-          periodOrbit	: 2,
           axialTilt	: -23*Math.PI/180
         });
         planet.object3d().addTo(world);
@@ -127,7 +126,6 @@ function initComputerDom(){
           soundUrl	: '../sounds/eatpill.mp3',
           soundUrl	: '../sounds/Kit3/snare.wav',
           radiusOrbit	: 2,
-          periodOrbit	: 3,
           scale		: 0.2
         });
         captors['p3']	= planet;
@@ -140,7 +138,6 @@ function initComputerDom(){
           textureUrl	: 'images/jupitermap.jpg',
           soundUrl	: '../sounds/Kit3/snare.wav',
           radiusOrbit	: 3,
-          periodOrbit	: 3,
           scale		: 0.2
         });
         captors['p4']	= planet;
@@ -153,7 +150,6 @@ function initComputerDom(){
           textureUrl	: 'images/marsmap.jpg',
           soundUrl	: '../sounds/Kit3/snare.wav',
           radiusOrbit	: 4,
-          periodOrbit	: 3,
           scale		: 0.2
         });
         captors['p5']	= planet;
@@ -166,7 +162,6 @@ function initComputerDom(){
           textureUrl	: 'images/neptunemap.jpg',
           soundUrl	: '../sounds/Kit3/snare.wav',
           radiusOrbit	: 5,
-          periodOrbit	: 3,
           scale		: 0.2
         });
         captors['p6']	= planet;
