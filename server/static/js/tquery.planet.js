@@ -3,6 +3,7 @@ tQuery.register('Planet', function(opts){
 		world		: tQuery.world,
 		radiusOrbit	: 0,
 		periodOrbit	: 1,
+		offsetOrbit	: Math.random()*Math.PI*2,
 		axialTilt	: 0,
 		scale		: 1
 	});
@@ -72,7 +73,8 @@ tQuery.Planet.prototype._loopCb	= function(deltaTime, present)
 {
 	var radiusOrbit	= this._opts.radiusOrbit;
 	var periodOrbit	= this._opts.periodOrbit;
-	var angleOrbit	= present / periodOrbit * Math.PI * 2;
+	var offsetOrbit	= this._opts.offsetOrbit;
+	var angleOrbit	= offsetOrbit + (present / periodOrbit * Math.PI * 2);
 	var positionX	= Math.cos(angleOrbit) * radiusOrbit;
 	var positionZ	= Math.sin(angleOrbit) * radiusOrbit;
 	this._object.position(positionX,0,positionZ)

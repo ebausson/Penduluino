@@ -134,6 +134,46 @@ function initComputerDom(){
         planet.object3d().addTo(world);		
       }
 
+      // mercury
+      if( true ){
+        var planet	= new tQuery.Planet({
+          textureUrl	: 'images/mercurymap.jpg',
+          soundUrl	: '../sounds/Kit3/snare.wav',
+          radiusOrbit	: 3,
+          periodOrbit	: 3,
+          scale		: 0.2
+        });
+        captors['p4']	= planet;
+        planet.object3d().addTo(world);		
+      }
+
+      // mercury
+      if( true ){
+        var planet	= new tQuery.Planet({
+          textureUrl	: 'images/mercurymap.jpg',
+          soundUrl	: '../sounds/Kit3/snare.wav',
+          radiusOrbit	: 4,
+          periodOrbit	: 3,
+          scale		: 0.2
+        });
+        captors['p5']	= planet;
+        planet.object3d().addTo(world);		
+      }
+
+      // mercury
+      if( true ){
+        var planet	= new tQuery.Planet({
+          textureUrl	: 'images/mercurymap.jpg',
+          soundUrl	: '../sounds/Kit3/snare.wav',
+          radiusOrbit	: 5,
+          periodOrbit	: 3,
+          scale		: 0.2
+        });
+        captors['p6']	= planet;
+        planet.object3d().addTo(world);		
+      }
+
+
       if( trackEnable )		soundtrack	= soundtrackCreate();
       //if( trackEnable && bg2dEnable )	histo2dBackgroundInit(soundtrack);
       histo3dBackgroundInit(soundtrack);
