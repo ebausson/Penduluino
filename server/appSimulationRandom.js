@@ -12,7 +12,7 @@ io.of('/computer').on('connection', function (socket) {
 });
 
 setInterval(function(){
-	var key		= 'p'+(1 + Math.floor(Math.random()*3));
+	var key		= 'p'+(1 + Math.floor(Math.random()*6));
 	var val		= Math.random() > 0.5 ? true : false;
 	var event	= {};
 	event[key]	= val;

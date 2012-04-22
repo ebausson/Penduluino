@@ -137,7 +137,7 @@ function initComputerDom(){
       // mercury
       if( true ){
         var planet	= new tQuery.Planet({
-          textureUrl	: 'images/mercurymap.jpg',
+          textureUrl	: 'images/jupitermap.jpg',
           soundUrl	: '../sounds/Kit3/snare.wav',
           radiusOrbit	: 3,
           periodOrbit	: 3,
@@ -150,7 +150,7 @@ function initComputerDom(){
       // mercury
       if( true ){
         var planet	= new tQuery.Planet({
-          textureUrl	: 'images/mercurymap.jpg',
+          textureUrl	: 'images/marsmap.jpg',
           soundUrl	: '../sounds/Kit3/snare.wav',
           radiusOrbit	: 4,
           periodOrbit	: 3,
@@ -163,7 +163,7 @@ function initComputerDom(){
       // mercury
       if( true ){
         var planet	= new tQuery.Planet({
-          textureUrl	: 'images/mercurymap.jpg',
+          textureUrl	: 'images/neptunemap.jpg',
           soundUrl	: '../sounds/Kit3/snare.wav',
           radiusOrbit	: 5,
           periodOrbit	: 3,
