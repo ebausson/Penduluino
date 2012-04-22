@@ -12,7 +12,7 @@ function backgroundInit(sound){
 	var updateBar	= function(){
 		if( sound.isPlayable() === false )	return;
 		
-		var nBar	= 40;
+		var nBar	= 10;
 		var histo	= sound.makeHistogram(nBar);
 
 		// clear the canvas
