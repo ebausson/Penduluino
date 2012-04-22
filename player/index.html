@@ -68,7 +68,32 @@
 		});
 		planet.object3d().addTo(world);
 		if( hiGlEnable )	planet.planet().useFileballMaterial(2);
-		captors['p1']	= planet;
+		var sun	= planet
+		world.loop().hook(function(){
+			// neutral value
+			var min		= 0;
+			var max		= 1;
+			var offset	= 0;
+			var range	= 1;
+			// tuned value
+			var min		= 0.8;
+			var max		= 1;
+			var offset	= 0.5;
+			var range	= 1.5;
+			// normalization of the scale
+			var scale	= soundtrack.amplitude();
+			scale		= Math.min(scale, max);
+			scale		= Math.max(scale, min);
+			scale		-= min;
+			scale		/= max == min ? 1 : max - min;
+			scale		*= range;
+			scale		+= offset;
+			// application of the scale
+			var oldScale	= sun.planet().get(0).scale.x;
+			var spdScale	= 0.6;
+			var newScale	= scale*spdScale+oldScale*(1-spdScale);
+			sun.planet().scale(newScale);
+		});
 	}
 
 	// moon	
@@ -83,10 +108,6 @@
 			axialTilt	: -23*Math.PI/180
 		});
 		planet.object3d().addTo(world);
-		setInterval(function(){
-			planet.tick();
-		}, 500);
-		console.log("moon", planet.sound())
 		captors['p2']	= planet;
 		var moon = planet;
 		//planet.sound();
