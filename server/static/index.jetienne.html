@@ -1,0 +1,143 @@
+<!doctype html><title>Minimal tQuery Page</title>
+<link rel="stylesheet" href="css/main.css" />
+
+<script src="vendor/tquery-bundle.js"></script>
+<script src="vendor/fireball/tquery.fireballmaterial.js"></script>
+
+<!-- webaudio.js to play sound -->
+<script src="vendor/webaudio.js"></script>
+<!--<script src="../../src/webaudio.core.js"></script>
+<script src="../../src/webaudio.nodechainbuilder.js"></script>
+<script src="../../src/webaudio.sound.js"></script>
+-->
+
+<!-- main class to store planete -->
+<script src="js/tquery.planet.js"></script>
+
+<!-- to display the soundtrack frequency histogram in 2D canvas -->
+<script src="js/soundtrack.js"></script>
+<script src="js/histo2dbackground.js"></script>
+<script src="js/histo3dbackground.js"></script>
+
+<!-- communication with the server -->
+<!--<script src="vendor/socket.io/socket.io.js"></script>
+<script src="js/commServer.js"></script>
+-->
+<!-- camera controls -->
+<script src="js/cameracontrols.js"></script>
+
+<script src="js/tweeneasing.js"></script>
+
+<body><script>
+	// some global
+	var audioEnable	= WebAudio.isAvailable;
+	var webGlEnable	= tQuery.World.hasWebGL();
+	var hiGlEnable	= false;
+	var trackEnable	= true;
+	var bg2dEnable	= true;
+
+	var captors	= {};
+	var soundtrack	= null;
+
+	var world	= tQuery.createWorld().boilerplate().start();
+	world.renderer().setClearColorHex( 0x000000, 0 );
+
+	initCameraControls(world);
+
+	// init the library
+	var webaudio	= new WebAudio();
+
+	// add lights
+	tQuery.createDirectionalLight().addTo(world).position(1,1,1);
+	tQuery.createDirectionalLight().addTo(world).position(-1,1,1);
+	tQuery.createAmbientLight().addTo(world).color(0xFFFFFF);
+
+	var tLight	= new THREE.PointLight(0xFFAAAA, 10);
+	tLight.position.set(0,0,0)
+
+	tQuery(tLight).addTo(world);
+
+
+	// create planets
+
+	// sun
+	if( true ){
+		var planet	= new tQuery.Planet({
+			textureUrl	: 'images/sunmap.jpg',
+			soundUrl	: '../sounds/eatpill.mp3',
+			soundUrl	: '../sounds/Kit3/kick.wav',
+			radiusOrbit	: 0,
+			periodOrbit	: 1
+		});
+		planet.object3d().addTo(world);
+		if( hiGlEnable )	planet.planet().useFileballMaterial(2);
+		var sun	= planet
+		world.loop().hook(function(){
+			// neutral value
+			var min		= 0;
+			var max		= 1;
+			var offset	= 0;
+			var range	= 1;
+			var tweenFn	= TWEEN.Easing.Linear.None;
+			// tuned value
+			var min		= 0.7;
+			var max		= 1;
+			var offset	= 0.8;
+			var range	= 1.2;
+			var tweenFn	= TWEEN.Easing.Circular.InOut;
+			var tweenFn	= TWEEN.Easing.Quadratic.InOut;
+			// normalization of the scale
+			var scale	= soundtrack.amplitude();
+			
+			scale		= Math.min(scale, max);
+			scale		= Math.max(scale, min);
+			scale		-= min;
+			scale		/= max == min ? 1 : max - min;
+			scale		= tweenFn(scale);
+			scale		*= range;
+			scale		+= offset;
+			// apply a smooth on the result... doesnt work well on sound
+			var oldScale	= sun.planet().get(0).scale.x;
+			var spdScale	= 0.6;
+			var newScale	= scale*spdScale+oldScale*(1-spdScale);
+			// application of the scale
+			sun.planet().scale(newScale);
+		}); 
+	}
+
+	// moon	
+	if( true ){
+		var planet	= new tQuery.Planet({
+			textureUrl	: 'images/moon_1024.jpg',
+			//textureUrl	: 'images/earth_atmos_2048.jpg',
+			soundUrl	: '../sounds/eatpill.mp3',
+			soundUrl	: '../sounds/Kit3/hihat.wav',
+			radiusOrbit	: 1,
+			periodOrbit	: 2,
+			axialTilt	: -23*Math.PI/180
+		});
+		planet.object3d().addTo(world);
+		captors['p2']	= planet;
+		var moon = planet;
+		//planet.sound();
+	}
+	
+
+	// mercury
+	if( true ){
+		var planet	= new tQuery.Planet({
+			textureUrl	: 'images/mercurymap.jpg',
+			soundUrl	: '../sounds/eatpill.mp3',
+			soundUrl	: '../sounds/Kit3/snare.wav',
+			radiusOrbit	: 2,
+			periodOrbit	: 3,
+			scale		: 0.2
+		});
+		captors['p3']	= planet;
+		planet.object3d().addTo(world);		
+	}
+
+	if( trackEnable )		soundtrack	= soundtrackCreate();
+	//if( trackEnable && bg2dEnable )	histo2dBackgroundInit(soundtrack);
+histo3dBackgroundInit(soundtrack);
+</script></body>
