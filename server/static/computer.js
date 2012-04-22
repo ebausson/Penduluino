@@ -1,5 +1,9 @@
 function computerInit(){
   
+
+  // init the library
+  webaudio	= new WebAudio();
+
   initComputerDom();
   
   
@@ -26,8 +30,18 @@ function computerInit(){
     }
     */
   });
-      
+  
   socket.on('mobile', function(data){
+    
+    if ( ! socket.mobileSound ) {
+      socket.mobileSound	= webaudio.createSound().load('../sounds/DIA_beat.wav', function(sound){
+        socket.mobileSound.volume(1);
+        socket.mobileSound.play();
+      });
+    } else {
+      socket.mobileSound.play();
+    }
+  
     console.log('+MOBILE');
     console.log(data);
   });
@@ -40,9 +54,6 @@ function initComputerDom(){
       world.renderer().setClearColorHex( 0x000000, 0 );
 
       initCameraControls(world);
-
-      // init the library
-      webaudio	= new WebAudio();
 
       // add lights
       tQuery.createDirectionalLight().addTo(world).position(1,1,1);
@@ -136,7 +147,7 @@ function initComputerDom(){
       if( true ){
         var planet	= new tQuery.Planet({
           textureUrl	: 'images/jupitermap.jpg',
-          soundUrl	: '../sounds/Kit3/snare.wav',
+          soundUrl	: '../sounds/SireneHBHG.wav',
           radiusOrbit	: 3,
           scale		: 0.2
         });
@@ -148,7 +159,7 @@ function initComputerDom(){
       if( true ){
         var planet	= new tQuery.Planet({
           textureUrl	: 'images/marsmap.jpg',
-          soundUrl	: '../sounds/Kit3/snare.wav',
+          soundUrl	: '../sounds/BelieveBass.wav',
           radiusOrbit	: 4,
           scale		: 0.2
         });
@@ -160,7 +171,7 @@ function initComputerDom(){
       if( true ){
         var planet	= new tQuery.Planet({
           textureUrl	: 'images/neptunemap.jpg',
-          soundUrl	: '../sounds/Kit3/snare.wav',
+          soundUrl	: '../sounds/eatpill.mp3',
           radiusOrbit	: 5,
           scale		: 0.2
         });
