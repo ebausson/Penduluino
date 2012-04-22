@@ -84,6 +84,6 @@ tQuery.Planet.prototype._loopCb	= function(deltaTime, present)
 	
 	// scale the planet depending on sound amplitude
 	var amplitude	= this._sound.amplitude();
-	var scale	= 0.1 + amplitude * 0.9;
+	var scale	= 0.5 + amplitude * 0.6;
 	this._planet.scale(scale);
 };
